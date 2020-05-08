@@ -1,8 +1,8 @@
-package question_01_07;
+package problem_01_07;
 
 import java.util.Arrays;
 
-public class App {
+public class Sollution {
 
     public static void main(String[] args) {
 
@@ -17,6 +17,14 @@ public class App {
         int n = 5;
 
         printMatrix(matrix);
+
+        rotateMatrix(matrix, n);
+
+        System.out.println();
+        printMatrix(matrix);
+    }
+
+    public static void rotateMatrix(int[][] matrix, int n) {
 
         int startIndex = 0;
         int endIndex = n - 1 ;
@@ -33,8 +41,6 @@ public class App {
             startIndex++;
             endIndex--;
         }
-        System.out.println();
-        printMatrix(matrix);
     }
 
     private static void printMatrix(int[][] matrix) {
