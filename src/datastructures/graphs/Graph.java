@@ -1,5 +1,6 @@
 package datastructures.graphs;
 
+import datastructures.queues.Queue;
 import datastructures.stacks.StackX;
 
 import java.util.Arrays;
@@ -10,6 +11,7 @@ public class Graph {
     private int[][] adjMat; // Матрица смежности
     private int nVerts; // Тек. кол-во вершин
     private StackX theStack;
+    private Queue theQueue;
 
     public Graph() {
         vertexList = new Vertex[MAX_VERTS];
@@ -19,6 +21,7 @@ public class Graph {
             Arrays.fill(i, 0);
         }
         theStack = new StackX(MAX_VERTS);
+        theQueue = new Queue(MAX_VERTS);
     }
 
     public void addVertex(char lable) {
@@ -64,6 +67,25 @@ public class Graph {
         }
     }
 
+    public void bfs() {
+
+        int current = 0;
+        int adj;
+        theQueue.insert(current);
+        while (!theQueue.isEmpty()) {
+            current = theQueue.remove();
+            vertexList[current].wasVisited = true;
+            displayVertex(current);
+            while ((adj = getAdjUnvisitedVertex(current)) != -1) {
+                vertexList[adj].wasVisited = true;
+                theQueue.insert(adj);
+            }
+        }
+        for (int i = 0; i < nVerts; i++) {
+            vertexList[i].wasVisited = false;
+        }
+    }
+
     public static void main(String[] args) {
         Graph theGraph = new Graph();
         theGraph.addVertex('A');    // 0
@@ -79,5 +101,10 @@ public class Graph {
         System.out.print("Visits: ");
         theGraph.dfs();             // Обход в глубину
         System.out.println();
+
+        System.out.print("Visits: ");
+        theGraph.bfs();             // Обход в ширину
+        System.out.println();
+
     }
 }
