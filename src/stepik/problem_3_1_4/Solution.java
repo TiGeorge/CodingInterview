@@ -1,10 +1,11 @@
 package stepik.problem_3_1_4;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalField;
+import java.util.Date;
 import java.util.Locale;
+import java.util.Map;
 
 public class Solution {
     public static void main(String[] args) {
@@ -30,4 +31,15 @@ public class Solution {
                 .atZoneSameInstant(ZoneId.of("Europe/Moscow"))
                 .toLocalDateTime();
     }
+
+    static Date instantToDate(Instant instant) {
+        // enter your code
+        try {
+            return Date.from(instant.minusNanos(instant.getNano()));
+        } catch (IllegalArgumentException e) {
+            if(instant.isAfter(Instant.EPOCH)) return new Date(Long.MAX_VALUE);
+            else return new Date(Long.MIN_VALUE);
+        }
+    }
+
 }
