@@ -9,6 +9,7 @@ public class Solution {
 
     interface Worker {
         String getPosition();
+        double getSalary();
     }
 
     public static void main(String[] args) {
@@ -19,6 +20,12 @@ public class Solution {
                 .collect(
                         Collectors.groupingBy(Worker::getPosition,
                                 Collectors.counting())
+                );
+
+        Map<String, Double> actual2 = workers.stream()
+                .collect(
+                        Collectors.groupingBy(Worker::getPosition,
+                                Collectors.averagingDouble(Worker::getSalary))
                 );
     }
 }
